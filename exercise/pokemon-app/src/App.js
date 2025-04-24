@@ -6,9 +6,6 @@ const elements = {
   pokemonGrid: document.getElementById("pokemonGrid"),
   searchInput: document.getElementById("searchInput"),
   searchButton: document.getElementById("searchButton"),
-  typeFilter: document.getElementById("typeFilter"),
-  sortBy: document.getElementById("sortBy"),
-  loadingIndicator: document.getElementById("loadingIndicator"),
   pagination: document.getElementById("pagination"),
   prevPage: document.getElementById("prevPage"),
   nextPage: document.getElementById("nextPage"),
@@ -32,21 +29,12 @@ const state = {
   totalPokemon: 0,
   allPokemon: [],
   displayedPokemon: [],
-  allTypes: [],
-  selectedType: "all",
-  sortBy: "number",
   searchTerm: "",
 };
 
 // Initialize the app
 async function init() {
   try {
-    showLoading(true);
-
-    // Load all types for the filter
-    state.allTypes = await PokeAPI.getAllTypes();
-    populateTypeFilter();
-
     // Load initial Pokemon
     await loadPokemon();
 
@@ -55,26 +43,12 @@ async function init() {
   } catch (error) {
     console.error("Initialization error:", error);
     alert("Failed to initialize the app. Please try again later.");
-  } finally {
-    showLoading(false);
   }
-}
-
-// Populate type filter dropdown
-function populateTypeFilter() {
-  state.allTypes.forEach((type) => {
-    const option = document.createElement("option");
-    option.value = type;
-    option.textContent = type.charAt(0).toUpperCase() + type.slice(1);
-    elements.typeFilter.appendChild(option);
-  });
 }
 
 // Load Pokemon for current page
 async function loadPokemon() {
   try {
-    showLoading(true);
-
     const offset = (state.currentPage - 1) * state.itemsPerPage;
     const response = await PokeAPI.getPokemonList(state.itemsPerPage, offset);
 
@@ -92,21 +66,12 @@ async function loadPokemon() {
   } catch (error) {
     console.error("Error loading Pokemon:", error);
     alert("Failed to load Pokemon. Please try again.");
-  } finally {
-    showLoading(false);
-  }
+  } 
 }
 
 // Filter and sort Pokemon based on current state
 function filterAndSortPokemon() {
   let filtered = [...state.allPokemon];
-
-  // Apply type filter
-  if (state.selectedType !== "all") {
-    filtered = filtered.filter((pokemon) =>
-      pokemon.types.includes(state.selectedType)
-    );
-  }
 
   // Apply search filter
   if (state.searchTerm) {
@@ -116,19 +81,6 @@ function filterAndSortPokemon() {
         pokemon.name.toLowerCase().includes(term) ||
         pokemon.number.toString().includes(term)
     );
-  }
-
-  // Apply sorting
-  switch (state.sortBy) {
-    case "name":
-      filtered.sort((a, b) => a.name.localeCompare(b.name));
-      break;
-    case "weight":
-      filtered.sort((a, b) => b.weight - a.weight);
-      break;
-    case "number":
-    default:
-      filtered.sort((a, b) => a.number - b.number);
   }
 
   state.displayedPokemon = filtered;
@@ -320,32 +272,12 @@ function goToPage(page) {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-// Show/hide loading indicator
-function showLoading(show) {
-  elements.loadingIndicator.classList.toggle("hidden", !show);
-  elements.pokemonGrid.classList.toggle("opacity-50", show);
-  elements.pagination.classList.toggle("opacity-50", show);
-}
-
 // Set up event listeners
 function setupEventListeners() {
   // Search
   elements.searchButton.addEventListener("click", handleSearch);
   elements.searchInput.addEventListener("keyup", (e) => {
     if (e.key === "Enter") handleSearch();
-  });
-
-  // Filters
-  elements.typeFilter.addEventListener("change", (e) => {
-    state.selectedType = e.target.value;
-    filterAndSortPokemon();
-    renderPokemon();
-  });
-
-  elements.sortBy.addEventListener("change", (e) => {
-    state.sortBy = e.target.value;
-    filterAndSortPokemon();
-    renderPokemon();
   });
 
   // Pagination

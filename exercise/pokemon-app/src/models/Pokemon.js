@@ -29,11 +29,7 @@ export default class Pokemon {
   }
 
   formatAbilityName(name) {
-    return name
-      .replace(/-/g, " ")
-      .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
+    return this.formatStatName(name);
   }
 
   get primaryType() {

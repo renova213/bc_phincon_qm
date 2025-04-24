@@ -13,7 +13,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
-    <link rel="stylesheet" href="./styles/main.css" />
+    <link rel="stylesheet" href="./src/styles/main.css" />
   </head>
   <body class="bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen">
     <!-- Animated Background Elements -->
@@ -97,42 +97,6 @@
             Search
           </button>
         </div>
-      </div>
-
-      <!-- Filters -->
-      <div class="flex flex-wrap justify-center gap-6 mb-12">
-        <div class="relative group">
-          <div
-            class="absolute -inset-0.5 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-200"
-          ></div>
-          <select
-            id="typeFilter"
-            class="relative px-6 py-3 rounded-full border-0 bg-white/90 backdrop-blur-sm shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-lg"
-          >
-            <option value="all">All Types</option>
-          </select>
-        </div>
-
-        <div class="relative group">
-          <div
-            class="absolute -inset-0.5 bg-gradient-to-r from-green-400 to-teal-500 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-200"
-          ></div>
-          <select
-            id="sortBy"
-            class="relative px-6 py-3 rounded-full border-0 bg-white/90 backdrop-blur-sm shadow-lg focus:outline-none focus:ring-2 focus:ring-green-400 text-lg"
-          >
-            <option value="number">Sort by Number</option>
-            <option value="name">Sort by Name</option>
-            <option value="weight">Sort by Weight</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Loading Indicator -->
-      <div id="loadingIndicator" class="flex justify-center py-16 hidden">
-        <div
-          class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-yellow-500"
-        ></div>
       </div>
 
       <!-- Pokemon Grid -->
