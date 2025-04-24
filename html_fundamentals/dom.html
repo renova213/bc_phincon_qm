@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM Exercise</title>
+  </head>
+  <body>
+    <p id="pokeName">Fetching data...</p>
+
+    <script>
+      let container = document.body;
+
+      (async function fetchPokemon() {
+        try {
+          const response = await fetch(
+            "https://pokeapi.co/api/v2/pokemon/pikachu"
+          );
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          const data = await response.json();
+          document.getElementById(
+            "pokeName"
+          ).textContent = `Pokemon: ${data.name}`;
+          console.log(data);
+        } catch (err) {
+          document.getElementById("pokeName").textContent =
+            "Failed to fetch data.";
+        }
+      })();
+    </script>
+  </body>
+</html>

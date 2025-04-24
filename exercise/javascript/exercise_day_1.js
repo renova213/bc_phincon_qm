@@ -194,3 +194,32 @@ console.log(`Ekspektasi hasil:
 konversiSuhu(30, "C") => 86 (Fahrenheit)
 konversiSuhu(86, "F") => 30 (Celsius)
 `);
+
+// 15. Hitung Jumlah Karakter Unik
+function hitungKarakterUnik(kalimat) {
+  const karakterUnik = new Set(kalimat);
+  return karakterUnik.size;
+}
+console.log("=== 15. Hitung Jumlah Karakter Unik ===");
+console.log(hitungKarakterUnik("hello world"));
+console.log(`Ekspektasi hasil:
+hitungKarakterUnik("hello world") => 8
+`);
+
+// 16. Hitung Jumlah Kemunculan Kata
+function hitungKemunculanKata(kalimat, kata) {
+  const kataKata = kalimat.toLowerCase().split(" ");
+  const kemunculan = {};
+  kataKata.forEach((kata) => {
+    kemunculan[kata] = kemunculan[kata] ? kemunculan[kata] + 1 : 1;
+  });
+  return kemunculan[kata.toLowerCase()];
+}
+
+console.log("=== 16. Hitung Jumlah Kemunculan Kata ===");
+console.log(
+  hitungKemunculanKata("Saya suka makan nasi, saya juga suka minum air", "suka")
+);
+console.log(`Ekspektasi hasil:
+hitungKemunculanKata("Saya suka makan nasi, saya juga suka minum air", "suka") => 2
+  `);
