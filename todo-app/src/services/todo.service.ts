@@ -7,6 +7,7 @@ import UpdateTodoDto from "../interfaces/IUpdateTodoDto";
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
 const todoService = {
+
   getAllTodos: async (): Promise<Todo[]> => {
     const response = await axios.get<ApiResponse<Todo[]>>(`${API_URL}/todos`);
     return response.data.data || [];

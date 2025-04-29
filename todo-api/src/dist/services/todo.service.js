@@ -8,7 +8,7 @@ class TodoService {
     async getAllTodos(paginationOptions) {
         const filter = {};
         const page = paginationOptions?.page || 1;
-        const limit = paginationOptions?.limit || 10;
+        const limit = 5;
         const skip = (page - 1) * limit;
         const [data, total] = await Promise.all([
             todo_model_1.default.find(filter)

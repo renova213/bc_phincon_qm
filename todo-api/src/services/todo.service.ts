@@ -30,7 +30,7 @@ class TodoService {
     const filter: TodoFilter = {};
 
     const page = paginationOptions?.page || 1;
-    const limit = paginationOptions?.limit || 10;
+    const limit = 5;
     const skip = (page - 1) * limit;
 
     const [data, total] = await Promise.all([
@@ -42,7 +42,6 @@ class TodoService {
     ]);
 
     const totalPages = Math.ceil(total / limit);
-
     return {
       data,
       total,
