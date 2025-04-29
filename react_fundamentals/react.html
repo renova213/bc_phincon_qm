@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 p-10">
+    <div id="mydiv"></div>
+
+    <script type="text/babel">
+      function Counter() {
+        const [count, setCount] = React.useState(0);
+
+        React.useEffect(() => {
+          console.log(`Count has been updated to: ${count}`);
+        }, [count]);
+
+        const handleIncrement = () => {
+          setCount(count + 1);
+        };
+
+        const handleDecrement = () => {
+          if (count > 0) {
+            setCount(count - 1);
+          }
+        };
+
+        const boxes = Array.from({ length: count }, (_, index) => (
+          <div
+            key={index}
+            className="w-12 h-12 bg-green-500 rounded shadow-md"
+          ></div>
+        ));
+
+        return (
+          <div class="text-center">
+            <h1 className="text-2xl font-bold mb-4">Counter: {count}</h1>
+            <div className="space-x-4 mb-6">
+              <button
+                onClick={handleDecrement}
+                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+              >
+                Decrement
+              </button>
+              <button
+                onClick={handleIncrement}
+                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              >
+                Increment
+              </button>
+            </div>
+            <div className="flex flex-wrap gap-4 justify-left">{boxes}</div>
+          </div>
+        );
+      }
+
+      const container = document.getElementById("mydiv");
+      const root = ReactDOM.createRoot(container);
+      root.render(<Counter />);
+    </script>
+  </body>
+</html>

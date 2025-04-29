@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 p-10">
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const initialTodos = [
+        { id: 1, title: "Todo 1", complete: false },
+        { id: 2, title: "Todo 2", complete: false },
+      ];
+
+      const reducer = (state, action) => {
+        switch (action.type) {
+          case "COMPLETE":
+            return state.map((todo) =>
+              todo.id === action.id
+                ? { ...todo, complete: !todo.complete }
+                : todo
+            );
+          default:
+            return state;
+        }
+      };
+
+      function Todos() {
+        const [todos, dispatch] = React.useReducer(reducer, initialTodos);
+
+        const handleComplete = (todo) => {
+          dispatch({ type: "COMPLETE", id: todo.id });
+        };
+
+        return (
+          <div className="space-y-2">
+            {todos.map((todo) => (
+              <div key={todo.id}>
+                <label className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    checked={todo.complete}
+                    onChange={() => handleComplete(todo)}
+                  />
+                  <span className={todo.complete ? "line-through" : ""}>
+                    {todo.title}
+                  </span>
+                </label>
+              </div>
+            ))}
+          </div>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<Todos />);
+    </script>
+  </body>
+</html>

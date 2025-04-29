@@ -13,25 +13,18 @@ export default class PokeAPI {
     }
   }
 
-  static async getPokemonList(limit: number = 20, offset: number = 0): Promise<PokemonListResponse> {
+  static async getPokemonList(
+    limit: number = 20,
+    offset: number = 0
+  ): Promise<PokemonListResponse> {
     try {
-      const response = await fetch(`${this.BASE_URL}/pokemon?limit=${limit}&offset=${offset}`);
+      const response = await fetch(
+        `${this.BASE_URL}/pokemon?limit=${limit}&offset=${offset}`
+      );
       if (!response.ok) throw new Error("Failed to fetch Pokemon list");
       return await response.json();
     } catch (error) {
       console.error("Error fetching Pokemon list:", error);
-      throw error;
-    }
-  }
-
-  static async getAllTypes(): Promise<string[]> {
-    try {
-      const response = await fetch(`${this.BASE_URL}/type`);
-      if (!response.ok) throw new Error("Failed to fetch types");
-      const data: TypeListResponse = await response.json();
-      return data.results.map((type) => type.name);
-    } catch (error) {
-      console.error("Error fetching types:", error);
       throw error;
     }
   }
@@ -45,13 +38,6 @@ interface NamedAPIResource {
 }
 
 interface PokemonListResponse {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: NamedAPIResource[];
-}
-
-interface TypeListResponse {
   count: number;
   next: string | null;
   previous: string | null;

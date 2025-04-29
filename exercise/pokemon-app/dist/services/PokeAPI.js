@@ -37,21 +37,6 @@ class PokeAPI {
             }
         });
     }
-    static getAllTypes() {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const response = yield fetch(`${this.BASE_URL}/type`);
-                if (!response.ok)
-                    throw new Error("Failed to fetch types");
-                const data = yield response.json();
-                return data.results.map((type) => type.name);
-            }
-            catch (error) {
-                console.error("Error fetching types:", error);
-                throw error;
-            }
-        });
-    }
 }
 PokeAPI.BASE_URL = "https://pokeapi.co/api/v2";
 export default PokeAPI;

@@ -79,15 +79,19 @@ function filterPokemon() {
     // Apply search filter
     if (state.searchTerm) {
         const term = state.searchTerm.toLowerCase();
-        filtered = filtered.filter((pokemon) => pokemon.name.toLowerCase().includes(term) ||
-            pokemon.number.toString().includes(term));
+        filtered = filtered.filter((pokemon) => {
+            var _a;
+            return (_a = pokemon.name.toLowerCase().includes(term)) !== null && _a !== void 0 ? _a : pokemon.number.toString().includes(term);
+        });
     }
     state.displayedPokemon = filtered;
 }
 // Render Pokemon to the grid
 function renderPokemon() {
-    elements.pokemonGrid.innerHTML = "";
-    if (state.displayedPokemon.length === 0) {
+    if (elements.pokemonGrid) {
+        elements.pokemonGrid.innerHTML = "";
+    }
+    if ((state.displayedPokemon.length === 0) && (elements.pokemonGrid)) {
         elements.pokemonGrid.innerHTML = `
             <div class="col-span-full text-center py-8 text-gray-500">
                 No Pokemon found matching your criteria.
@@ -96,6 +100,7 @@ function renderPokemon() {
         return;
     }
     state.displayedPokemon.forEach((pokemon) => {
+        var _a;
         const card = document.createElement("div");
         card.className =
             "bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition transform hover:-translate-y-1 cursor-pointer";
@@ -122,12 +127,11 @@ function renderPokemon() {
             </div>
         `;
         card.addEventListener("click", () => showPokemonDetails(pokemon));
-        elements.pokemonGrid.appendChild(card);
+        (_a = elements === null || elements === void 0 ? void 0 : elements.pokemonGrid) === null || _a === void 0 ? void 0 : _a.appendChild(card);
     });
 }
 // Render pagination controls
 function renderPagination() {
-    elements.pageNumbers.innerHTML = "";
     const totalPages = Math.ceil(state.totalPokemon / state.itemsPerPage);
     const maxVisiblePages = 5;
     let startPage, endPage;
@@ -151,73 +155,86 @@ function renderPagination() {
             endPage = state.currentPage + maxPagesAfterCurrent;
         }
     }
-    // Previous button
-    elements.prevPage.disabled = state.currentPage === 1;
-    // Page numbers
-    if (startPage > 1) {
-        const firstPage = document.createElement("button");
-        firstPage.className =
-            "w-10 h-10 bg-gray-200 hover:bg-gray-300 rounded-full";
-        firstPage.textContent = "1";
-        firstPage.addEventListener("click", () => goToPage(1));
-        elements.pageNumbers.appendChild(firstPage);
-        if (startPage > 2) {
-            const ellipsis = document.createElement("span");
-            ellipsis.className = "flex items-center";
-            ellipsis.textContent = "...";
-            elements.pageNumbers.appendChild(ellipsis);
+    elements.prevPage.disabled = (state.currentPage === 1);
+    const pageNumbersContainer = elements.pageNumbers;
+    if (pageNumbersContainer) {
+        pageNumbersContainer.innerHTML = "";
+        if (startPage > 1) {
+            pageNumbersContainer.appendChild(createPageButton(1));
+            if (startPage > 2) {
+                pageNumbersContainer.appendChild(createEllipsis());
+            }
+        }
+        for (let page = startPage; page <= endPage; page++) {
+            pageNumbersContainer.appendChild(createPageButton(page));
+        }
+        if (endPage < totalPages) {
+            if (endPage < totalPages - 1) {
+                pageNumbersContainer.appendChild(createEllipsis());
+            }
+            pageNumbersContainer.appendChild(createPageButton(totalPages));
         }
     }
-    for (let i = startPage; i <= endPage; i++) {
-        const pageButton = document.createElement("button");
-        pageButton.className = `w-10 h-10 rounded-full ${i === state.currentPage
-            ? "bg-yellow-400 text-white font-bold"
-            : "bg-gray-200 hover:bg-gray-300"}`;
-        pageButton.textContent = i.toString();
-        pageButton.addEventListener("click", () => goToPage(i));
-        elements.pageNumbers.appendChild(pageButton);
-    }
-    if (endPage < totalPages) {
-        if (endPage < totalPages - 1) {
-            const ellipsis = document.createElement("span");
-            ellipsis.className = "flex items-center";
-            ellipsis.textContent = "...";
-            elements.pageNumbers.appendChild(ellipsis);
-        }
-        const lastPage = document.createElement("button");
-        lastPage.className = "w-10 h-10 bg-gray-200 hover:bg-gray-300 rounded-full";
-        lastPage.textContent = totalPages.toString();
-        lastPage.addEventListener("click", () => goToPage(totalPages));
-        elements.pageNumbers.appendChild(lastPage);
-    }
-    // Next button
-    elements.nextPage.disabled = state.currentPage === totalPages;
+    elements.nextPage.disabled = (state.currentPage === totalPages);
+}
+function createPageButton(pageNumber) {
+    const button = document.createElement("button");
+    button.className = `w-10 h-10 rounded-full ${pageNumber === state.currentPage
+        ? "bg-yellow-400 text-white font-bold"
+        : "bg-gray-200 hover:bg-gray-300"}`;
+    button.textContent = pageNumber.toString();
+    button.addEventListener("click", () => goToPage(pageNumber));
+    return button;
+}
+function createEllipsis() {
+    const ellipsis = document.createElement("span");
+    ellipsis.className = "flex items-center";
+    ellipsis.textContent = "...";
+    return ellipsis;
 }
 // Show Pokemon details in modal
 function showPokemonDetails(pokemon) {
-    elements.modalImage.src = pokemon.image || "";
+    var _a, _b;
+    elements.modalImage.src = (_a = pokemon.image) !== null && _a !== void 0 ? _a : "";
     elements.modalImage.alt = pokemon.name;
-    elements.modalName.textContent = pokemon.name;
-    elements.modalNumber.textContent = `#${pokemon.number
-        .toString()}`;
-    elements.modalTypes.innerHTML = "";
+    if (elements.modalName) {
+        elements.modalName.textContent = pokemon.name;
+    }
+    if (elements.modalNumber) {
+        elements.modalNumber.textContent = `#${pokemon.number
+            .toString()}`;
+    }
+    if (elements.modalTypes) {
+        elements.modalTypes.innerHTML = "";
+    }
     pokemon.types.forEach((type) => {
+        var _a;
         const typeBadge = document.createElement("span");
         typeBadge.className = `px-3 py-1 text-sm rounded-full capitalize type-${type}`;
         typeBadge.textContent = type;
-        elements.modalTypes.appendChild(typeBadge);
+        (_a = elements === null || elements === void 0 ? void 0 : elements.modalTypes) === null || _a === void 0 ? void 0 : _a.appendChild(typeBadge);
     });
-    elements.modalHeight.textContent = `${pokemon.height}m`;
-    elements.modalWeight.textContent = `${pokemon.weight}kg`;
-    elements.modalAbilities.innerHTML = "";
+    if (elements.modalHeight) {
+        elements.modalHeight.textContent = `${pokemon.height}m`;
+    }
+    if (elements.modalWeight) {
+        elements.modalWeight.textContent = `${pokemon.weight}kg`;
+    }
+    if (elements.modalAbilities) {
+        elements.modalAbilities.innerHTML = "";
+    }
     pokemon.abilities.forEach((ability) => {
+        var _a;
         const li = document.createElement("li");
         li.className = `py-1 ${ability.isHidden ? "text-gray-500" : ""}`;
         li.textContent = ability.name + (ability.isHidden ? " (hidden)" : "");
-        elements.modalAbilities.appendChild(li);
+        (_a = elements === null || elements === void 0 ? void 0 : elements.modalAbilities) === null || _a === void 0 ? void 0 : _a.appendChild(li);
     });
-    elements.modalStats.innerHTML = "";
+    if (elements.modalStats) {
+        elements.modalStats.innerHTML = "";
+    }
     pokemon.stats.forEach((stat) => {
+        var _a;
         const statDiv = document.createElement("div");
         statDiv.innerHTML = `
             <div class="flex justify-between text-sm mb-1">
@@ -228,9 +245,9 @@ function showPokemonDetails(pokemon) {
                 <div class="bg-green-500 h-2 rounded-full" style="width: ${Math.min(100, stat.value)}%"></div>
             </div>
         `;
-        elements.modalStats.appendChild(statDiv);
+        (_a = elements === null || elements === void 0 ? void 0 : elements.modalStats) === null || _a === void 0 ? void 0 : _a.appendChild(statDiv);
     });
-    elements.pokemonModal.classList.remove("hidden");
+    (_b = elements === null || elements === void 0 ? void 0 : elements.pokemonModal) === null || _b === void 0 ? void 0 : _b.classList.remove("hidden");
 }
 // Navigate to specific page
 function goToPage(page) {
@@ -253,11 +270,13 @@ function setupEventListeners() {
     elements.nextPage.addEventListener("click", () => goToPage(state.currentPage + 1));
     // Modal
     elements.closeModal.addEventListener("click", () => {
-        elements.pokemonModal.classList.add("hidden");
+        var _a;
+        (_a = elements === null || elements === void 0 ? void 0 : elements.pokemonModal) === null || _a === void 0 ? void 0 : _a.classList.add("hidden");
     });
     window.addEventListener("click", (e) => {
+        var _a;
         if (e.target === elements.pokemonModal) {
-            elements.pokemonModal.classList.add("hidden");
+            (_a = elements === null || elements === void 0 ? void 0 : elements.pokemonModal) === null || _a === void 0 ? void 0 : _a.classList.add("hidden");
         }
     });
 }
