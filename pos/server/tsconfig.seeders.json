@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist-seeders",
+    "rootDir": "./src",
+    "module": "CommonJS"
+  },
+  "include": ["src/seeders/**/*.ts"],
+  "exclude": ["node_modules"]
+}

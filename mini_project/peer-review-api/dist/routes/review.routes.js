@@ -1,0 +1,10 @@
+import Express from "express";
+import ReviewController from "../controllers/review.controllers.js";
+import { ReviewBadwordsValidator, ReviewValidator, UploadImage, } from "../middlewares/index.js";
+const router = Express.Router();
+router.get("/review/nested/app", ReviewController.gettAppReviews);
+router.get("/review/nested/courses", ReviewController.getCourseReviews);
+router.get("/review/nested/tryout-sections", ReviewController.getTryoutReviews);
+router.post("/review/:userId", ReviewValidator.createReviewValidator, ReviewBadwordsValidator, ReviewValidator.alreadyExistParentReviewValidator, UploadImage.uploadSingle, ReviewController.createReview);
+router.put("/review/:reviewId", ReviewValidator.updateReviewValidator, UploadImage.uploadSingle, ReviewController.updateReview);
+export default router;

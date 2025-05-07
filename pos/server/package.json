@@ -1,0 +1,44 @@
+{
+  "name": "lms-api",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.ts",
+  "scripts": {
+    "start": "ts-node src/dist/server.js",
+    "dev": "nodemon src/dist/server.js",
+    "migrate": "npx tsc && npx sequelize-cli db:migrate",
+    "migrate:undo:all": "npx tsc && npx sequelize-cli db:migrate:undo:all",
+    "seed": "npx tsc && npx sequelize-cli db:seed:all",
+    "seed:undo:all": "npx tsc && npx sequelize-cli db:seed:undo:all"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "path": "^0.12.7",
+    "pg": "^8.15.6",
+    "sequelize-typescript": "^2.1.6"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.1",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/node": "^22.15.3",
+    "@types/sequelize": "^4.28.20",
+    "@types/uuid": "^10.0.0",
+    "i": "^0.3.7",
+    "nodemon": "^3.1.10",
+    "npm": "^11.3.0",
+    "sequelize-cli": "^6.6.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
