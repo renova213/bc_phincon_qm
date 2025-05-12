@@ -10,7 +10,8 @@
     "migrate:undo:all": "npx tsc && npx sequelize-cli db:migrate:undo:all",
     "seed": "npx tsc && npx sequelize-cli db:seed:all",
     "seed:undo:all": "npx tsc && npx sequelize-cli db:seed:undo:all",
-    "test": "jest --config dist/configs/jest.config.js"
+    "test": "jest --config jest.config.js",
+    "refresh": "npx tsc && npx sequelize-cli db:seed:undo:all && npx sequelize-cli db:seed:all"
   },
   "author": "",
   "license": "ISC",

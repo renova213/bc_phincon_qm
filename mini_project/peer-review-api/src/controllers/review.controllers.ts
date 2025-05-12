@@ -4,9 +4,29 @@ import UploadImageServices from "../services/upload.image.services.js";
 import { CourseType } from "../types/review.type.js";
 
 class CourseController {
+  static async getReviewById(req: Request, res: Response): Promise<void> {
+    try {
+      const { reviewId } = req.params;
+      const review = await ReviewServices.findById(reviewId);
+      res.status(200).json({
+        success: true,
+        data: review,
+      });
+      return;
+    } catch (error: any) {
+      res.status(500).json({
+        success: false,
+        message: error.message,
+      });
+      return;
+    }
+  }
   static async gettAppReviews(req: Request, res: Response): Promise<void> {
     try {
-      const reviews = await ReviewServices.findReviewByType(CourseType.APP);
+      const reviews = await ReviewServices.findReviews({
+        referenceId: "",
+        type: CourseType.APP,
+      });
       res.status(200).json({
         success: true,
         data: reviews,
@@ -20,12 +40,91 @@ class CourseController {
       return;
     }
   }
+
+  static async gettAppReviewsById(req: Request, res: Response): Promise<void> {
+    try {
+      const { appId } = req.params;
+
+      if (!appId) {
+        res.status(404).json({
+          success: false,
+          message: `appId is required`,
+        });
+        return;
+      }
+
+      const review = await ReviewServices.findReviews({
+        referenceId: "",
+        type: CourseType.APP,
+        appSectionId: appId,
+      });
+      res.status(200).json({
+        success: true,
+        data: review,
+      });
+      return;
+    } catch (error: any) {
+      res.status(500).json({
+        success: false,
+        message: error.message,
+      });
+      return;
+    }
+  }
+
   static async getCourseReviews(req: Request, res: Response): Promise<void> {
     try {
-      const reviews = await ReviewServices.findReviewByType(CourseType.COURSE);
+      const reviews = await ReviewServices.findReviews({
+        referenceId: "",
+        type: CourseType.COURSE,
+      });
+
       res.status(200).json({
         success: true,
         data: reviews,
+      });
+      return;
+    } catch (error: any) {
+      res.status(500).json({
+        success: false,
+        message: error.message,
+      });
+      return;
+    }
+  }
+
+  static async getCourseReviewsById(
+    req: Request,
+    res: Response
+  ): Promise<void> {
+    try {
+      const { courseId } = req.params;
+
+      if (!courseId) {
+        res.status(404).json({
+          success: false,
+          message: `courseId is required`,
+        });
+        return;
+      }
+
+      const review = await ReviewServices.findReviews({
+        referenceId: "",
+        type: CourseType.COURSE,
+        courseId: courseId,
+      });
+
+      if (!review) {
+        res.status(404).json({
+          success: false,
+          message: `Course with given id not found`,
+        });
+        return;
+      }
+
+      res.status(200).json({
+        success: true,
+        data: review,
       });
       return;
     } catch (error: any) {
@@ -38,16 +137,49 @@ class CourseController {
   }
 
   static async getTryoutReviews(req: Request, res: Response): Promise<void> {
-    const { limit } = req.params;
-
     try {
-      const reviews = await ReviewServices.findReviewByType(
-        CourseType.TRYOUT,
-        Number(limit ?? 10)
-      );
+      const reviews = await ReviewServices.findReviews({
+        referenceId: "",
+        type: CourseType.TRYOUT,
+      });
+
       res.status(200).json({
         success: true,
         data: reviews,
+      });
+      return;
+    } catch (error: any) {
+      res.status(500).json({
+        success: false,
+        message: error.message,
+      });
+      return;
+    }
+  }
+
+  static async getTryoutReviewsById(
+    req: Request,
+    res: Response
+  ): Promise<void> {
+    const { tryoutId } = req.params;
+
+    try {
+      if (!tryoutId) {
+        res.status(404).json({
+          success: false,
+          message: `tryoutId is required`,
+        });
+        return;
+      }
+      const review = await ReviewServices.findReviews({
+        referenceId: "",
+        type: CourseType.TRYOUT,
+        tryoutId: tryoutId,
+      });
+
+      res.status(200).json({
+        success: true,
+        data: review,
       });
       return;
     } catch (error: any) {
@@ -64,17 +196,19 @@ class CourseController {
       let reviewData = req.body;
       reviewData.userId = req.params.userId;
       const image = req.file;
-
+      console.log(image?.buffer);
+      console.log(image?.originalname);
       if (image) {
-        reviewData.image = await UploadImageServices.processImage(image);
+        const uploadedImage = await UploadImageServices.processImage(image);
+        reviewData.image = uploadedImage.url;
+        reviewData.data = { imageFileId: uploadedImage.fileId };
       }
 
-      const newReview = await ReviewServices.createReview(reviewData);
+      await ReviewServices.createReview(reviewData);
 
       res.status(201).json({
         success: true,
         message: "Review created successfully",
-        data: newReview,
       });
       return;
     } catch (error) {
@@ -111,15 +245,11 @@ class CourseController {
         }
       }
 
-      const updatedReview = await ReviewServices.updateReview(
-        reviewId,
-        updatedReviewData
-      );
+      await ReviewServices.updateReview(reviewId, updatedReviewData);
 
       res.status(200).json({
         success: true,
         message: "Review updated successfully",
-        data: updatedReview,
       });
     } catch (error) {
       console.error("Error updating review:", error);

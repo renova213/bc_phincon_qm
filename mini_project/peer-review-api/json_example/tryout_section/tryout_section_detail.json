@@ -1,0 +1,21 @@
+{
+    "success": true,
+    "data": {
+        "id": "115743e4-b42b-4ffe-8417-689a6b3777c3",
+        "code": "ISMS-S01_API_SECURITY",
+        "description": null,
+        "title": "API Security",
+        "order": 1,
+        "data": {
+            "icon": "🔐",
+            "type": "LMS",
+            "telegram": {
+                "shortId": 1
+            }
+        },
+        "tag": "phincon",
+        "active": true,
+        "createdAt": "2025-05-01T11:32:55.000Z",
+        "updatedAt": "2025-05-01T11:32:55.000Z"
+    }
+}

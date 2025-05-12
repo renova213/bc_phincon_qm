@@ -26,6 +26,10 @@ class ReviewVoteService {
     return reviewVote;
   }
 
+  async delete(id: string) {
+    await ReviewVoteModel.destroy({ where: { id: id } });
+  }
+
   async update(id: string, data: Partial<ReviewVoteAttributeType>) {
     const updatedVoteReview = await ReviewVoteModel.update(data, {
       where: { id: id },

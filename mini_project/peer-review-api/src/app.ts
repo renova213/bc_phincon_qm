@@ -7,6 +7,7 @@ import {
   ReviewRoutes,
   ReviewVoteRoutes,
   TryoutRoutes,
+  AppRoutes,
 } from "./routes/index.js";
 
 const app: Application = Express();
@@ -15,6 +16,7 @@ const routes: Express.Router[] = [
   ReviewRoutes,
   TryoutRoutes,
   ReviewVoteRoutes,
+  AppRoutes,
 ];
 
 // Middleware

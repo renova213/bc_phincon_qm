@@ -1,0 +1,334 @@
+{
+    "success": true,
+    "data": [
+        {
+            "id": "73473fc8-0b05-47cb-8a58-23a97bfcaf51",
+            "userId": "734d1344-bd80-4a91-a4b5-db3861a6b580",
+            "referenceId": "                                    ",
+            "type": "COURSE",
+            "rating": 4.5,
+            "content": "Great course, helped me understand the fundamentals clearly.",
+            "image": null,
+            "data": {
+                "platform": "web"
+            },
+            "active": true,
+            "createdAt": "2025-05-11T10:03:53.493Z",
+            "updatedAt": "2025-05-11T10:03:53.493Z",
+            "courseId": "115743e4-b42b-4ffe-8418-689a6b3777c3",
+            "tryoutId": null,
+            "appSectionId": null,
+            "reviewVotes": [
+                {
+                    "id": "6d7f0fe0-3da0-4817-a21f-bc22078655fd",
+                    "userId": "73473fc8-0b05-47cb-8a58-23a97bfcaf53",
+                    "reviewId": "73473fc8-0b05-47cb-8a58-23a97bfcaf51",
+                    "type": "upvote"
+                }
+            ],
+            "user": {
+                "id": "734d1344-bd80-4a91-a4b5-db3861a6b580",
+                "username": "sargeant",
+                "fullname": "Sigit Sasongko",
+                "email": "siko.spade31@gmail.com",
+                "phoneNumber": "+6285725363777",
+                "data": {
+                    "telegram": {
+                        "id": "703181169",
+                        "exam": {
+                            "currentExamId": "6d8f33d8-fa85-4447-9532-f6d3a2aea36a",
+                            "currentQuestionIndex": 6
+                        },
+                        "lastState": "start",
+                        "currentExamId": null,
+                        "currentQuestionIndex": null
+                    }
+                }
+            },
+            "replies": []
+        },
+        {
+            "id": "73473fc8-0b05-47cb-8a58-23a97bfcaf52",
+            "userId": "73473fc8-0b05-47cb-8a58-23a97bfcaf53",
+            "referenceId": "                                    ",
+            "type": "COURSE",
+            "rating": 4,
+            "content": "The tryout was challenging but fair. Good preparation for the exam.",
+            "image": null,
+            "data": {
+                "completedIn": "45 minutes"
+            },
+            "active": true,
+            "createdAt": "2025-05-11T10:03:53.493Z",
+            "updatedAt": "2025-05-11T10:03:53.493Z",
+            "courseId": "3e0c2ee4-31aa-44c8-b555-e4a5df02ff84",
+            "tryoutId": null,
+            "appSectionId": null,
+            "reviewVotes": [
+                {
+                    "id": "c46e49b4-fb6b-43fb-8920-4054f5db02ed",
+                    "userId": "73473fc8-0b05-47cb-8a58-23a97bfcaf53",
+                    "reviewId": "73473fc8-0b05-47cb-8a58-23a97bfcaf52",
+                    "type": "downvote"
+                }
+            ],
+            "user": {
+                "id": "73473fc8-0b05-47cb-8a58-23a97bfcaf53",
+                "username": "FastTiger-N4c3W",
+                "fullname": "Sigit Sasongko",
+                "email": "sigit.center31@gmail.com",
+                "phoneNumber": "+6286403152165",
+                "data": {}
+            },
+            "replies": [
+                {
+                    "id": "9f4a7aef-0f7e-4a82-85e7-447e040f3ad0",
+                    "userId": "e5f6a7b8-c9d0-1234-5678-90abcdef1234",
+                    "referenceId": "73473fc8-0b05-47cb-8a58-23a97bfcaf52",
+                    "type": "COURSE",
+                    "rating": 4,
+                    "content": "The tryout was challenging but fair. Good preparation for the exam.",
+                    "image": null,
+                    "data": {
+                        "completedIn": "45 minutes"
+                    },
+                    "active": true,
+                    "createdAt": "2025-05-11T10:03:53.493Z",
+                    "updatedAt": "2025-05-11T10:03:53.493Z",
+                    "courseId": "3e0c2ee4-31aa-44c8-b555-e4a5df02ff84",
+                    "tryoutId": null,
+                    "appSectionId": null,
+                    "reviewVotes": [],
+                    "user": {
+                        "id": "e5f6a7b8-c9d0-1234-5678-90abcdef1234",
+                        "username": "charliegreen",
+                        "fullname": "Charlie Green",
+                        "email": "charliegreen@example.com",
+                        "phoneNumber": "+6281234567895",
+                        "data": {
+                            "preferences": {
+                                "timezone": "UTC+7"
+                            }
+                        }
+                    },
+                    "replies": [
+                        {
+                            "id": "4b3f8a71-ec42-4f63-9e7d-43e40e8a91e5",
+                            "userId": "d4e5f6a7-b8c9-0123-4567-890abcdef123",
+                            "referenceId": "9f4a7aef-0f7e-4a82-85e7-447e040f3ad0",
+                            "type": "COURSE",
+                            "rating": 4,
+                            "content": "The tryout was challenging but fair. Good preparation for the exam.",
+                            "image": null,
+                            "data": {
+                                "completedIn": "45 minutes"
+                            },
+                            "active": true,
+                            "createdAt": "2025-05-11T10:03:53.493Z",
+                            "updatedAt": "2025-05-11T10:03:53.493Z",
+                            "courseId": "3e0c2ee4-31aa-44c8-b555-e4a5df02ff84",
+                            "tryoutId": null,
+                            "appSectionId": null,
+                            "reviewVotes": [],
+                            "user": {
+                                "id": "d4e5f6a7-b8c9-0123-4567-890abcdef123",
+                                "username": "bobbrown",
+                                "fullname": "Bob Brown",
+                                "email": "bobbrown@example.com",
+                                "phoneNumber": "+6281234567894",
+                                "data": {
+                                    "preferences": {
+                                        "notifications": "sms"
+                                    }
+                                }
+                            },
+                            "replies": [
+                                {
+                                    "id": "a1c7f7bb-9479-4df3-81e6-4319e5f7c8c1",
+                                    "userId": "c3d4e5f6-a7b8-9012-3456-7890abcdef12",
+                                    "referenceId": "4b3f8a71-ec42-4f63-9e7d-43e40e8a91e5",
+                                    "type": "COURSE",
+                                    "rating": 4,
+                                    "content": "The tryout was challenging but fair. Good preparation for the exam.",
+                                    "image": null,
+                                    "data": {
+                                        "completedIn": "45 minutes"
+                                    },
+                                    "active": true,
+                                    "createdAt": "2025-05-11T10:03:53.493Z",
+                                    "updatedAt": "2025-05-11T10:03:53.493Z",
+                                    "courseId": "3e0c2ee4-31aa-44c8-b555-e4a5df02ff84",
+                                    "tryoutId": null,
+                                    "appSectionId": null,
+                                    "reviewVotes": [],
+                                    "user": {
+                                        "id": "c3d4e5f6-a7b8-9012-3456-7890abcdef12",
+                                        "username": "alicejohnson",
+                                        "fullname": "Alice Johnson",
+                                        "email": "alicejohnson@example.com",
+                                        "phoneNumber": "+6281234567893",
+                                        "data": {
+                                            "settings": {
+                                                "language": "en"
+                                            }
+                                        }
+                                    },
+                                    "replies": [
+                                        {
+                                            "id": "f00a7a6c-510e-49d6-bf1a-29598211b5b5",
+                                            "userId": "b2c3d4e5-f6a7-8901-2345-67890abcdef1",
+                                            "referenceId": "a1c7f7bb-9479-4df3-81e6-4319e5f7c8c1",
+                                            "type": "COURSE",
+                                            "rating": 4,
+                                            "content": "The tryout was challenging but fair. Good preparation for the exam.",
+                                            "image": null,
+                                            "data": {
+                                                "completedIn": "45 minutes"
+                                            },
+                                            "active": true,
+                                            "createdAt": "2025-05-11T10:03:53.493Z",
+                                            "updatedAt": "2025-05-11T10:03:53.493Z",
+                                            "courseId": "3e0c2ee4-31aa-44c8-b555-e4a5df02ff84",
+                                            "tryoutId": null,
+                                            "appSectionId": null,
+                                            "reviewVotes": [],
+                                            "user": {
+                                                "id": "b2c3d4e5-f6a7-8901-2345-67890abcdef1",
+                                                "username": "janesmith",
+                                                "fullname": "Jane Smith",
+                                                "email": "janesmith@example.com",
+                                                "phoneNumber": "+6281234567892",
+                                                "data": {
+                                                    "notifications": {
+                                                        "email": true
+                                                    }
+                                                }
+                                            },
+                                            "replies": [
+                                                {
+                                                    "id": "12e6b007-052a-4f91-b693-dc3fd0f1c3c9",
+                                                    "userId": "a1b2c3d4-e5f6-7890-1234-56789abcdef0",
+                                                    "referenceId": "f00a7a6c-510e-49d6-bf1a-29598211b5b5",
+                                                    "type": "COURSE",
+                                                    "rating": 4,
+                                                    "content": "The tryout was challenging but fair. Good preparation for the exam.",
+                                                    "image": null,
+                                                    "data": {
+                                                        "completedIn": "45 minutes"
+                                                    },
+                                                    "active": true,
+                                                    "createdAt": "2025-05-11T10:03:53.493Z",
+                                                    "updatedAt": "2025-05-11T10:03:53.493Z",
+                                                    "courseId": "3e0c2ee4-31aa-44c8-b555-e4a5df02ff84",
+                                                    "tryoutId": null,
+                                                    "appSectionId": null,
+                                                    "reviewVotes": [],
+                                                    "user": {
+                                                        "id": "a1b2c3d4-e5f6-7890-1234-56789abcdef0",
+                                                        "username": "johndoe",
+                                                        "fullname": "John Doe",
+                                                        "email": "johndoe@example.com",
+                                                        "phoneNumber": "+6281234567891",
+                                                        "data": {
+                                                            "preferences": {
+                                                                "theme": "dark"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "id": "e0d937b4-9bfa-423a-8e0c-dacc88925486",
+                                                    "userId": "c9b1e2a4-2e68-4e1f-947b-cdf8a7ea1d11",
+                                                    "referenceId": "12e6b007-052a-4f91-b693-dc3fd0f1c3c9",
+                                                    "type": "COURSE",
+                                                    "rating": 4,
+                                                    "content": "The tryout was challenging but fair. Good preparation for the exam.",
+                                                    "image": null,
+                                                    "data": {
+                                                        "completedIn": "45 minutes"
+                                                    },
+                                                    "active": true,
+                                                    "createdAt": "2025-05-11T10:03:53.493Z",
+                                                    "updatedAt": "2025-05-11T10:03:53.493Z",
+                                                    "courseId": "3e0c2ee4-31aa-44c8-b555-e4a5df02ff84",
+                                                    "tryoutId": null,
+                                                    "appSectionId": null,
+                                                    "reviewVotes": [],
+                                                    "user": {
+                                                        "id": "c9b1e2a4-2e68-4e1f-947b-cdf8a7ea1d11",
+                                                        "username": "sargeant2",
+                                                        "fullname": "Sigit Sasongko",
+                                                        "email": "siko.spade32@gmail.com",
+                                                        "phoneNumber": "+6285725363777",
+                                                        "data": {
+                                                            "telegram": {
+                                                                "id": "703181169",
+                                                                "exam": {
+                                                                    "currentExamId": "6d8f33d8-fa85-4447-9532-f6d3a2aea36a",
+                                                                    "currentQuestionIndex": 6
+                                                                },
+                                                                "lastState": "start",
+                                                                "currentExamId": null,
+                                                                "currentQuestionIndex": null
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "c9b1e2a4-2e68-4e1f-947b-cdf8a7ea1d0e",
+                    "userId": "734d1344-bd80-4a91-a4b5-db3861a6b580",
+                    "referenceId": "73473fc8-0b05-47cb-8a58-23a97bfcaf52",
+                    "type": "COURSE",
+                    "rating": 4,
+                    "content": "Yup, agree. The tryout was challenging but fair. Good preparation for the exam.",
+                    "image": null,
+                    "data": {
+                        "completedIn": "45 minutes"
+                    },
+                    "active": true,
+                    "createdAt": "2025-05-11T10:03:53.493Z",
+                    "updatedAt": "2025-05-11T10:03:53.493Z",
+                    "courseId": "3e0c2ee4-31aa-44c8-b555-e4a5df02ff84",
+                    "tryoutId": null,
+                    "appSectionId": null,
+                    "reviewVotes": [
+                        {
+                            "id": "c0fd702f-3b6c-4c8d-9b82-084d54550073",
+                            "userId": "734d1344-bd80-4a91-a4b5-db3861a6b580",
+                            "reviewId": "c9b1e2a4-2e68-4e1f-947b-cdf8a7ea1d0e",
+                            "type": "downvote"
+                        }
+                    ],
+                    "user": {
+                        "id": "734d1344-bd80-4a91-a4b5-db3861a6b580",
+                        "username": "sargeant",
+                        "fullname": "Sigit Sasongko",
+                        "email": "siko.spade31@gmail.com",
+                        "phoneNumber": "+6285725363777",
+                        "data": {
+                            "telegram": {
+                                "id": "703181169",
+                                "exam": {
+                                    "currentExamId": "6d8f33d8-fa85-4447-9532-f6d3a2aea36a",
+                                    "currentQuestionIndex": 6
+                                },
+                                "lastState": "start",
+                                "currentExamId": null,
+                                "currentQuestionIndex": null
+                            }
+                        }
+                    },
+                    "replies": []
+                }
+            ]
+        }
+    ]
+}

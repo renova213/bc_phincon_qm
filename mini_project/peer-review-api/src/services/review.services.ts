@@ -1,14 +1,16 @@
+import { WhereOptions } from "sequelize";
 import db from "../models/index.js";
 import ReviewModel from "../models/review.model.js";
 import {
-  CourseType,
   ReviewAttributeType,
   ReviewType,
   ReviewUpdateAttribute,
 } from "../types/review.type.js";
 
 class ReviewServices {
-  static async findReviews(limit: number = 10) {
+  static async findReviews(
+    option: WhereOptions<ReviewType> = { referenceId: "" }
+  ) {
     let reviews = await db.Review.findAll({
       include: [
         {
@@ -16,11 +18,15 @@ class ReviewServices {
           as: "reviewVotes",
           attributes: { exclude: ["createdAt", "updatedAt", "active"] },
         },
+        {
+          model: db.User,
+          as: "user",
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "active", "password"],
+          },
+        },
       ],
-      where: {
-        referenceId: "",
-      },
-      limit: limit,
+      where: option,
     });
 
     for (const review of reviews) {
@@ -29,50 +35,24 @@ class ReviewServices {
       );
     }
 
-    reviews.sort(
-      (a, b) =>
+    reviews.sort((a, b) => {
+      const voteDifference =
         (b.dataValues.reviewVotes ?? []).reduce((sum, type) => {
           return sum + (type.type === "upvote" ? 1 : -1);
         }, 0) -
         (a.dataValues.reviewVotes ?? []).reduce((sum, type) => {
           return sum + (type.type === "upvote" ? 1 : -1);
-        }, 0)
-    );
+        }, 0);
 
-    return reviews;
-  }
+      if (voteDifference !== 0) {
+        return voteDifference;
+      }
 
-  static async findReviewByType(type: CourseType, limit: number = 10) {
-    let reviews = await db.Review.findAll({
-      include: [
-        {
-          model: db.ReviewVote,
-          as: "reviewVotes",
-          attributes: { exclude: ["createdAt", "updatedAt", "active"] },
-        },
-      ],
-      where: {
-        referenceId: "",
-        type: type.toUpperCase(),
-      },
-      limit: limit,
-    });
-
-    for (const review of reviews) {
-      review.dataValues.replies = await this.findRepliesRecursively(
-        review.dataValues.id
+      return (
+        new Date(a.dataValues.createdAt).getTime() -
+        new Date(b.dataValues.createdAt).getTime()
       );
-    }
-
-    reviews.sort(
-      (a, b) =>
-        (b.dataValues.reviewVotes ?? []).reduce((sum, type) => {
-          return sum + (type.type === "upvote" ? 1 : -1);
-        }, 0) -
-        (a.dataValues.reviewVotes ?? []).reduce((sum, type) => {
-          return sum + (type.type === "upvote" ? 1 : -1);
-        }, 0)
-    );
+    });
 
     return reviews;
   }
@@ -88,6 +68,13 @@ class ReviewServices {
           model: db.ReviewVote,
           as: "reviewVotes",
           attributes: { exclude: ["createdAt", "updatedAt", "active"] },
+        },
+        {
+          model: db.User,
+          as: "user",
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "active", "password"],
+          },
         },
       ],
       where: {
@@ -115,12 +102,8 @@ class ReviewServices {
 
     replies.sort(
       (a, b) =>
-        (b.dataValues.reviewVotes ?? []).reduce((sum, type) => {
-          return sum + (type.type === "upvote" ? 1 : -1);
-        }, 0) -
-        (a.dataValues.reviewVotes ?? []).reduce((sum, type) => {
-          return sum + (type.type === "upvote" ? 1 : -1);
-        }, 0)
+        new Date(a.dataValues.createdAt).getTime() -
+        new Date(b.dataValues.createdAt).getTime()
     );
 
     return replies.map((reply) => reply.dataValues);
@@ -141,6 +124,13 @@ class ReviewServices {
             as: "reviewVotes",
             attributes: { exclude: ["createdAt", "updatedAt", "active"] },
           },
+          {
+            model: db.User,
+            as: "user",
+            attributes: {
+              exclude: ["createdAt", "updatedAt", "active", "password"],
+            },
+          },
         ],
         where: {
           referenceId: currentId,
@@ -155,19 +145,35 @@ class ReviewServices {
 
     stack.sort(
       (a, b) =>
-        (b.reviewVotes ?? []).reduce((sum, type) => {
-          return sum + (type.type === "upvote" ? 1 : -1);
-        }, 0) -
-        (a.reviewVotes ?? []).reduce((sum, type) => {
-          return sum + (type.type === "upvote" ? 1 : -1);
-        }, 0)
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
     );
 
     return stack;
   }
 
   static async findById(id: string) {
-    const review = await db.Review.findByPk(id);
+    let review = await db.Review.findByPk(id, {
+      include: [
+        {
+          model: db.ReviewVote,
+          as: "reviewVotes",
+          attributes: { exclude: ["createdAt", "updatedAt", "active"] },
+        },
+        {
+          model: db.User,
+          as: "user",
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "active", "password"],
+          },
+        },
+      ],
+    });
+
+    if (review?.dataValues.id !== "" && review) {
+      review.dataValues.replies = await this.findRepliesRecursively(
+        review.dataValues.id
+      );
+    }
     return review;
   }
 
