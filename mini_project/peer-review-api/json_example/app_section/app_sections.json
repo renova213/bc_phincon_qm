@@ -1,0 +1,59 @@
+{
+    "success": true,
+    "data": [
+        {
+            "id": "115743e4-b22b-4ffe-8417-689a6b3777c3",
+            "code": "ISMS-S01_API_SECURITY",
+            "title": "API Security",
+            "description": null,
+            "order": 1,
+            "tag": "phincon",
+            "data": {
+                "icon": "🔐",
+                "type": "LMS",
+                "telegram": {
+                    "shortId": 1
+                }
+            },
+            "active": true,
+            "createdAt": "2025-05-01T11:32:55.000Z",
+            "updatedAt": "2025-05-01T11:32:55.000Z"
+        },
+        {
+            "id": "3e0c2ee4-3taa-44c8-b554-e4a5df02ff84",
+            "code": "ISMS-S21_SECURE_SYSTEM_DEVELOPMENT_LIFECYCLE",
+            "title": "Secure System Development Lifecycle",
+            "description": null,
+            "order": 1,
+            "tag": "phincon",
+            "data": {
+                "icon": "🔐",
+                "type": "LMS",
+                "telegram": {
+                    "shortId": 2
+                }
+            },
+            "active": true,
+            "createdAt": "2025-05-01T11:32:55.000Z",
+            "updatedAt": "2025-05-01T11:32:55.000Z"
+        },
+        {
+            "id": "e1a15a9c-8t9a-4d45-8040-2d2e3871e059",
+            "code": "ISMS-S30_BUILD_SECURITY_SYSTEM_STANDARD",
+            "title": "Security System Standard",
+            "description": null,
+            "order": 1,
+            "tag": "phincon",
+            "data": {
+                "icon": "🔐",
+                "type": "LMS",
+                "telegram": {
+                    "shortId": 3
+                }
+            },
+            "active": true,
+            "createdAt": "2025-05-01T11:32:55.000Z",
+            "updatedAt": "2025-05-01T11:32:55.000Z"
+        }
+    ]
+}

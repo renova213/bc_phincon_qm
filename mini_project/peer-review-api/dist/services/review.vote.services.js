@@ -20,6 +20,9 @@ class ReviewVoteService {
         const reviewVote = await ReviewVoteModel.create(data);
         return reviewVote;
     }
+    async delete(id) {
+        await ReviewVoteModel.destroy({ where: { id: id } });
+    }
     async update(id, data) {
         const updatedVoteReview = await ReviewVoteModel.update(data, {
             where: { id: id },

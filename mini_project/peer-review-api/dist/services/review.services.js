@@ -1,6 +1,6 @@
 import db from "../models/index.js";
 class ReviewServices {
-    static async findReviews(limit = 10) {
+    static async findReviews(option = { referenceId: "" }) {
         let reviews = await db.Review.findAll({
             include: [
                 {
@@ -8,47 +8,32 @@ class ReviewServices {
                     as: "reviewVotes",
                     attributes: { exclude: ["createdAt", "updatedAt", "active"] },
                 },
-            ],
-            where: {
-                referenceId: "",
-            },
-            limit: limit,
-        });
-        for (const review of reviews) {
-            review.dataValues.replies = await this.findRepliesRecursively(review.dataValues.id);
-        }
-        reviews.sort((a, b) => (b.dataValues.reviewVotes ?? []).reduce((sum, type) => {
-            return sum + (type.type === "upvote" ? 1 : -1);
-        }, 0) -
-            (a.dataValues.reviewVotes ?? []).reduce((sum, type) => {
-                return sum + (type.type === "upvote" ? 1 : -1);
-            }, 0));
-        return reviews;
-    }
-    static async findReviewByType(type, limit = 10) {
-        let reviews = await db.Review.findAll({
-            include: [
                 {
-                    model: db.ReviewVote,
-                    as: "reviewVotes",
-                    attributes: { exclude: ["createdAt", "updatedAt", "active"] },
+                    model: db.User,
+                    as: "user",
+                    attributes: {
+                        exclude: ["createdAt", "updatedAt", "active", "password"],
+                    },
                 },
             ],
-            where: {
-                referenceId: "",
-                type: type.toUpperCase(),
-            },
-            limit: limit,
+            where: option,
         });
         for (const review of reviews) {
             review.dataValues.replies = await this.findRepliesRecursively(review.dataValues.id);
         }
-        reviews.sort((a, b) => (b.dataValues.reviewVotes ?? []).reduce((sum, type) => {
-            return sum + (type.type === "upvote" ? 1 : -1);
-        }, 0) -
-            (a.dataValues.reviewVotes ?? []).reduce((sum, type) => {
+        reviews.sort((a, b) => {
+            const voteDifference = (b.dataValues.reviewVotes ?? []).reduce((sum, type) => {
                 return sum + (type.type === "upvote" ? 1 : -1);
-            }, 0));
+            }, 0) -
+                (a.dataValues.reviewVotes ?? []).reduce((sum, type) => {
+                    return sum + (type.type === "upvote" ? 1 : -1);
+                }, 0);
+            if (voteDifference !== 0) {
+                return voteDifference;
+            }
+            return (new Date(a.dataValues.createdAt).getTime() -
+                new Date(b.dataValues.createdAt).getTime());
+        });
         return reviews;
     }
     static async findRepliesRecursively(parentId, currentDepth = 1, maxDepth = 4) {
@@ -58,6 +43,13 @@ class ReviewServices {
                     model: db.ReviewVote,
                     as: "reviewVotes",
                     attributes: { exclude: ["createdAt", "updatedAt", "active"] },
+                },
+                {
+                    model: db.User,
+                    as: "user",
+                    attributes: {
+                        exclude: ["createdAt", "updatedAt", "active", "password"],
+                    },
                 },
             ],
             where: {
@@ -76,12 +68,8 @@ class ReviewServices {
                 replyData.replies = await this.collectAllDeeperReplies(replyData.id);
             }
         }
-        replies.sort((a, b) => (b.dataValues.reviewVotes ?? []).reduce((sum, type) => {
-            return sum + (type.type === "upvote" ? 1 : -1);
-        }, 0) -
-            (a.dataValues.reviewVotes ?? []).reduce((sum, type) => {
-                return sum + (type.type === "upvote" ? 1 : -1);
-            }, 0));
+        replies.sort((a, b) => new Date(a.dataValues.createdAt).getTime() -
+            new Date(b.dataValues.createdAt).getTime());
         return replies.map((reply) => reply.dataValues);
     }
     static async collectAllDeeperReplies(parentId) {
@@ -96,6 +84,13 @@ class ReviewServices {
                         as: "reviewVotes",
                         attributes: { exclude: ["createdAt", "updatedAt", "active"] },
                     },
+                    {
+                        model: db.User,
+                        as: "user",
+                        attributes: {
+                            exclude: ["createdAt", "updatedAt", "active", "password"],
+                        },
+                    },
                 ],
                 where: {
                     referenceId: currentId,
@@ -106,16 +101,29 @@ class ReviewServices {
                 queue.push(reply.dataValues.id);
             }
         }
-        stack.sort((a, b) => (b.reviewVotes ?? []).reduce((sum, type) => {
-            return sum + (type.type === "upvote" ? 1 : -1);
-        }, 0) -
-            (a.reviewVotes ?? []).reduce((sum, type) => {
-                return sum + (type.type === "upvote" ? 1 : -1);
-            }, 0));
+        stack.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
         return stack;
     }
     static async findById(id) {
-        const review = await db.Review.findByPk(id);
+        let review = await db.Review.findByPk(id, {
+            include: [
+                {
+                    model: db.ReviewVote,
+                    as: "reviewVotes",
+                    attributes: { exclude: ["createdAt", "updatedAt", "active"] },
+                },
+                {
+                    model: db.User,
+                    as: "user",
+                    attributes: {
+                        exclude: ["createdAt", "updatedAt", "active", "password"],
+                    },
+                },
+            ],
+        });
+        if (review?.dataValues.id !== "" && review) {
+            review.dataValues.replies = await this.findRepliesRecursively(review.dataValues.id);
+        }
         return review;
     }
     static async createReview(data) {

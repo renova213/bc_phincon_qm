@@ -5,11 +5,13 @@ import { ReviewVoteValidator, UserValidator } from "../middlewares/index.js";
 const router = Express.Router();
 
 router.post(
-  "/vote/reviews",
+  "/vote/review",
   ReviewVoteValidator.ReviewValidator,
   ReviewVoteValidator.notFoundVoteReview,
   UserValidator.userExistValidator,
   ReviewVoteController.createOrUpdateReviewVote
 );
+
+router.get("/vote/review/:voteReviewId", ReviewVoteController.fetchVoteReview);
 
 export default router;

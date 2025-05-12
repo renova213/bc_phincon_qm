@@ -30,6 +30,15 @@ class ReviewModel extends Model<ReviewType, ReviewAttributeType> {
     });
   }
 
+    static associateToAppSection(models: any) {
+    ReviewModel.belongsTo(models.AppSection, {
+      foreignKey: "appSectionId",
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE",
+      as: "appSection",
+    });
+  }
+
   static associateToReviewVote(models: any) {
     ReviewModel.hasMany(models.ReviewVote, {
       foreignKey: "reviewId",

@@ -16,7 +16,7 @@ class TryoutSectionServices {
     id: string
   ): Promise<TryoutSectionModel | null> {
     try {
-      const tryoutSection = await db.Course.findByPk(id);
+      const tryoutSection = await db.TryoutSection.findByPk(id);
       return tryoutSection;
     } catch {
       throw Error("Failed to get tryoutSection by id");

@@ -12,7 +12,7 @@ class TryoutSectionServices {
     }
     static async getTryouSectiontById(id) {
         try {
-            const tryoutSection = await db.Course.findByPk(id);
+            const tryoutSection = await db.TryoutSection.findByPk(id);
             return tryoutSection;
         }
         catch {

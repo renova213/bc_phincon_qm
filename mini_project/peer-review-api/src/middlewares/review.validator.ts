@@ -63,7 +63,7 @@ const createReviewValidator = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { referenceId, courseId, tryoutId } = req.body;
+  const { referenceId, courseId, tryoutId, type } = req.body;
   const { userId } = req.params;
 
   if (!userId) {
@@ -74,7 +74,7 @@ const createReviewValidator = async (
     return;
   }
 
-  if (!courseId && !tryoutId) {
+  if (!courseId && !tryoutId && type.toLowerCase() !== "app") {
     res.status(400).json({
       success: false,
       message: "courseId or tryoutId is required",
@@ -114,7 +114,7 @@ const alreadyExistParentReviewValidator = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { referenceId, courseId, tryoutId } = req.body;
+  const { referenceId, courseId, tryoutId, type } = req.body;
   const { userId } = req.params;
 
   if (referenceId.trim() === "") {
@@ -170,6 +170,21 @@ const alreadyExistParentReviewValidator = async (
 
       const existingUser = await db.Review.findOne({
         where: { referenceId: "", userId: userId, tryoutId: tryoutId },
+      });
+
+      if (existingUser) {
+        res.status(400).json({
+          success: false,
+          message: "you already reviewed this course",
+        });
+
+        return;
+      }
+    }
+
+    if (type.toLowerCase() === "app") {
+      const existingUser = await db.Review.findOne({
+        where: { referenceId: "", userId: userId, type: "APP" },
       });
 
       if (existingUser) {

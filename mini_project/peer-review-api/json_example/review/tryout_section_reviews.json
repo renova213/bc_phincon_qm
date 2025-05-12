@@ -1,0 +1,73 @@
+{
+    "success": true,
+    "data": [
+        {
+            "id": "e24c506f-84f0-4f78-9f31-3d0aa63f9bd1",
+            "userId": "734d1344-bd80-4a91-a4b5-db3861a6b580",
+            "referenceId": "                                    ",
+            "type": "TRYOUT_SECTION",
+            "rating": 4.5,
+            "content": "Great course, helped me understand the fundamentals clearly.",
+            "image": null,
+            "data": {
+                "platform": "web"
+            },
+            "active": true,
+            "createdAt": "2025-05-12T01:50:01.892Z",
+            "updatedAt": "2025-05-12T01:50:01.892Z",
+            "courseId": null,
+            "tryoutId": "3e0c2ee4-31aa-44c8-b554-e4a5df02ff84",
+            "appSectionId": null,
+            "reviewVotes": [],
+            "user": {
+                "id": "734d1344-bd80-4a91-a4b5-db3861a6b580",
+                "username": "sargeant",
+                "fullname": "Sigit Sasongko",
+                "email": "siko.spade31@gmail.com",
+                "phoneNumber": "+6285725363777",
+                "data": {
+                    "telegram": {
+                        "id": "703181169",
+                        "exam": {
+                            "currentExamId": "6d8f33d8-fa85-4447-9532-f6d3a2aea36a",
+                            "currentQuestionIndex": 6
+                        },
+                        "lastState": "start",
+                        "currentExamId": null,
+                        "currentQuestionIndex": null
+                    }
+                }
+            },
+            "replies": [
+                {
+                    "id": "7f3c9e2b-0b9b-42d4-b79f-5b9c31326ce7",
+                    "userId": "73473fc8-0b05-47cb-8a58-23a97bfcaf53",
+                    "referenceId": "e24c506f-84f0-4f78-9f31-3d0aa63f9bd1",
+                    "type": "TRYOUT_SECTION",
+                    "rating": 4,
+                    "content": "The tryout was challenging but fair. Good preparation for the exam.",
+                    "image": null,
+                    "data": {
+                        "completedIn": "45 minutes"
+                    },
+                    "active": true,
+                    "createdAt": "2025-05-12T01:50:01.892Z",
+                    "updatedAt": "2025-05-12T01:50:01.892Z",
+                    "courseId": null,
+                    "tryoutId": "115743e4-b42b-4ffe-8417-689a6b3777c3",
+                    "appSectionId": null,
+                    "reviewVotes": [],
+                    "user": {
+                        "id": "73473fc8-0b05-47cb-8a58-23a97bfcaf53",
+                        "username": "FastTiger-N4c3W",
+                        "fullname": "Sigit Sasongko",
+                        "email": "sigit.center31@gmail.com",
+                        "phoneNumber": "+6286403152165",
+                        "data": {}
+                    },
+                    "replies": []
+                }
+            ]
+        }
+    ]
+}

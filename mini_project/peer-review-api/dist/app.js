@@ -2,13 +2,14 @@ import BodyParser from "body-parser";
 import Cors from "cors";
 import Express from "express";
 import { CorsMiddleware, NotFoundMiddleware } from "./middlewares/index.js";
-import { CourseRoutes, ReviewRoutes, ReviewVoteRoutes, TryoutRoutes, } from "./routes/index.js";
+import { CourseRoutes, ReviewRoutes, ReviewVoteRoutes, TryoutRoutes, AppRoutes, } from "./routes/index.js";
 const app = Express();
 const routes = [
     CourseRoutes,
     ReviewRoutes,
     TryoutRoutes,
     ReviewVoteRoutes,
+    AppRoutes,
 ];
 // Middleware
 app.use(Cors(CorsMiddleware));

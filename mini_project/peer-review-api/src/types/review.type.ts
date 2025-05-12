@@ -12,6 +12,7 @@ export interface ReviewType {
   referenceId: string;
   courseId?: string;
   tryoutId?: string;
+  appSectionId?: string;
   type: CourseType;
   rating: number;
   content: string;
